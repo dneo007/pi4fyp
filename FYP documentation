@@ -1,3 +1,40 @@
 Install flask
+Install SQLalchemy
+
+source init.sh
+
+
+ENV variables:
 export FLASK_APP=flaskapp
 export FLASK_ENV=development
+
+
+Database Setup:
+from flaskapp import db
+db.create_all()
+from flaskapp import User,Post
+user_1 = User(username='Darren', email='d@demo.com', password='password')
+db.session.add(user_1)
+db.session.commit()
+
+Quering databse:
+User.query.all()
+User.query.first()
+User.query.filter_by(username='Darren').all()
+User.query.filter_by(username='Darren').first()
+user = User.query.filter_by(username='Darren').first()
+user.id
+user = User.query.get(1)
+user.posts
+post_1 = Post(title='Blog 1', content='First Post Content', user_id=user.id)
+post_2 = Post(title='Blog 2', content='Second Post Content', user_id=user.id)
+db.session.add(post_1)
+db.session.add(post_2)
+db.session.commit()
+user.posts
+post=Post.query.first()
+post.user_id
+post.author
+
+Removing database:
+db.drop_all()
