@@ -1,5 +1,8 @@
-Install flask
-Install SQLalchemy
+Install flask - pip3
+Install SQLalchemy - pip3
+Install sqlite3 = apt-get
+Install sqlitebrowser = apt-get
+Install Mosquito = apt-get
 
 source init.sh
 
