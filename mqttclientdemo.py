@@ -3,23 +3,32 @@
 # check if the received data matches two predefined 'commands'
 
 import paho.mqtt.client as mqtt
-
+import sqlite3 as sqlite3
+from dbentry import dbinsert
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
 
-    # Subscribing in on_connect() - if we lose the connection and
+
+    print("Connected with result code "+str(rc))
+        # Subscribing in on_connect() - if we lose the connection and
     # reconnect then subscriptions will be renewed.
-    client.subscribe("CoreElectronics/test")
-    client.subscribe("CoreElectronics/topic")
+    client.subscribe("myoware/results")
+#    client.subscribe("myoware/results2")
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
+    msg.payload = msg.payload.decode("utf-8")
+    #    print(msg.topic+" "+str(msg.payload))
+    print("Received from "+ msg.topic+" "+ str(msg.payload))
+    msg.payload=int(msg.payload)
+    #print(msg.payload)
+    dbinsert(msg.payload)
 
-    if msg.payload == "Hello":
-        print("Received message #1, do something")
+
+    # if msg.payload == "13":
+    #     print("Received message #1, do something")
+
         # Do something
 
 
@@ -32,7 +41,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("127.0.0.1", 1883, 60)
+client.connect("192.168.1.3", 1883, 60)
 
 # Process network traffic and dispatch callbacks. This will also handle
 # reconnecting. Check the documentation at

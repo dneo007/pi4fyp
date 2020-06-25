@@ -1,4 +1,5 @@
 Install flask - pip3
+Install email_validator - pip3
 Install SQLalchemy - pip3
 Install sqlite3 = apt-get
 Install sqlitebrowser = apt-get
@@ -15,7 +16,7 @@ export FLASK_ENV=development
 Database Setup:
 from flaskapp import db
 db.create_all()
-from flaskapp import User,Post
+from flaskapp import User,Post,Reading
 user_1 = User(username='Darren', email='d@demo.com', password='password')
 db.session.add(user_1)
 db.session.commit()
