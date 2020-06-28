@@ -1,9 +1,12 @@
 Install flask - pip3
 Install email_validator - pip3
 Install SQLalchemy - pip3
+Install flask-bcrypt - pip3
+Install flask-login - pip3
 Install sqlite3 = apt-get
 Install sqlitebrowser = apt-get
 Install Mosquito = apt-get
+
 
 source init.sh
 
@@ -42,3 +45,9 @@ post.author
 
 Removing database:
 db.drop_all()
+
+Hashing Commands:
+from flask_becrypt import Bcrypt
+bcrypt = Bcrypt()
+bcrypt.generate_password_hash('testing').decode('utf-8')
+bcrypt.check_password_hash(hashed_pw, 'testing')
