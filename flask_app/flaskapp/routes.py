@@ -1,9 +1,10 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, jsonify
 from flaskapp import app, db, bcrypt
 from flaskapp.forms import RegistrationForm, LoginForm
 from flaskapp.models import User, Post, Reading
 from flask_login import login_user, current_user, logout_user, login_required
-
+import json
+from flaskapp.dbquery import dbquery, dbquery2
 
 posts = [
     {
@@ -62,6 +63,35 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/chart', methods=['GET', 'POST'])
+def chart():
+    # readings = Reading.query.all()
+    id = []
+    sensor = dbquery()
+    print(sensor)
+    # for reading in readings:
+    #     # id.append(reading.id)
+    #     sensor.append(reading.id)
+    data = {
+        # "id": id,
+        "sensor": sensor
+    }
+    return render_template('chart.html', title='Chart', data=data)
+
+@app.route('/json', methods=['GET', 'POST'])
+def json():
+    sensor = dbquery()
+    id = dbquery2()
+    print(sensor)
+    # for reading in readings:
+    #     # id.append(reading.id)
+    #     sensor.append(reading.id)
+    data = {
+        "id": id,
+        "sensor": sensor
+    }
+    return jsonify(data)
 
 @app.route('/account')
 @login_required
