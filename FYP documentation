@@ -3,9 +3,10 @@ Install email_validator - pip3
 Install SQLalchemy - pip3
 Install flask-bcrypt - pip3
 Install flask-login - pip3
-Install sqlite3 = apt-get
-Install sqlitebrowser = apt-get
-Install Mosquito = apt-get
+(Optional) Install Pillow - pip3
+Install sqlite3 - apt-get
+Install sqlitebrowser - apt-get
+Install Mosquito - apt-get
 
 
 source init.sh
