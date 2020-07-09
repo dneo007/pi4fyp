@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<meta http-equiv="refresh" content="5">
+<!-- <meta http-equiv="refresh" content="5"> -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chartistjs/chartist.min.css') }}">
 <script src="{{ url_for('static', filename='chartistjs/chartist.min.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<div class="ct-chart ct-perfect-fourth"></div>
+<div class="ct-chart ct-perfect-fourth">
 <script>
   class MyCharts{
 
@@ -28,10 +28,10 @@
         height: this.height,
         axisX:{
           showGrid:true,
-          showLabel:true
+          showLabel:true,
         },
         axisY:{
-          offset:60
+          offset:1000
         }
       };
       new Chartist.Line('.ct-chart', data);
@@ -42,14 +42,15 @@
   var data = $.get('/json');
   var emg = data.done(function (resp){
       console.log("JSON SENSOR DATA",resp.sensor);
-      console.log("JSON ID DATA",resp.id);
-      var obj = new MyCharts(resp.id,resp.sensor, 500, 500);
+      console.log("JSON SENSOR DATA");
+      console.log("JSON ID DATA",resp.time);
+      var obj = new MyCharts(resp.time,resp.sensor, 500, 900);
       obj.creategraph();
   })
 
 </script>
-
-<h2>{{ sensor }}</h2>
+</div>
+<h2>hello {{ sensor }}</h2>
 <h3>{{ results }}</h3>
 
 {% endblock %}

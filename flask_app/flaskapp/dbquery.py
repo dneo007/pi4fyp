@@ -6,7 +6,7 @@ def dbquery():
         db = sqlite3.connect('/home/pi/Desktop/flask_app/flaskapp/site.db') #DB connection
         db.row_factory = lambda cursor, row: row[0]
         cursor = db.cursor() #Create cursor object
-        sensedata = cursor.execute('SELECT results FROM reading').fetchall()
+        sensedata = cursor.execute('SELECT results FROM reading ORDER BY date_posted DESC LIMIT 10').fetchall()
         return sensedata
     except Exception as e:
         raise e
@@ -19,7 +19,7 @@ def dbquery2():
         db = sqlite3.connect('/home/pi/Desktop/flask_app/flaskapp/site.db') #DB connection
         db.row_factory = lambda cursor, row: row[0]
         cursor = db.cursor() #Create cursor object
-        sensedata = cursor.execute('SELECT id FROM reading').fetchall()
+        sensedata = cursor.execute('SELECT date_posted FROM reading ORDER BY date_posted DESC LIMIT 10').fetchall()
         return sensedata
     except Exception as e:
         raise e

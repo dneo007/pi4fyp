@@ -60,22 +60,24 @@ def chart():
     sensor = dbquery()
     id = dbquery2()
     print(sensor)
+    print(id)
+
     # for reading in readings:
     #     # id.append(reading.id)
     #     sensor.append(reading.id)
-    data = {
-        "id": id,
-        "sensor": sensor
-    }
-    return render_template('chart.html', title='Chart', data=data)
+    # data = {
+    #     "id": id,
+    #     "sensor": sensor
+    # }
+    return render_template('chart.html', title='Chart')
 
 @app.route('/json', methods=['GET', 'POST'])
 def json():
     sensor = dbquery()
-    id = dbquery2()
+    time = dbquery2()
     print(sensor)
     data = {
-        "id": id,
+        "time": time,
         "sensor": sensor
     }
     return jsonify(data)
