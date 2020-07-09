@@ -31,6 +31,7 @@ class Post(db.Model):
 class Reading(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     results = db.Column(db.Integer, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def __repr__(self):
         return f"Reading('{self.results}')"

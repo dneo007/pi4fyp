@@ -1,10 +1,10 @@
 import sqlite3 as sqlite3
-
+from datetime import datetime
 def dbinsert(data):
     try:
         db = sqlite3.connect('/home/pi/Desktop/flask_app/flaskapp/site.db') #DB connection
         cursor = db.cursor() #Create cursor object
-        cursor.execute('''INSERT INTO reading(results) VALUES(?)''', (data,))
+        cursor.execute('''INSERT INTO reading(results,date_posted) VALUES(?,?)''', (data, datetime.now(),))
         db.commit()
     except Exception as e:
         raise e
