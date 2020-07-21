@@ -5,6 +5,7 @@
 import paho.mqtt.client as mqtt
 import sqlite3 as sqlite3
 from dbentry import dbinsert
+from sendsms import sendsms
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -23,6 +24,9 @@ def on_message(client, userdata, msg):
     print("Received from "+ msg.topic+" "+ str(msg.payload))
     msg.payload=int(msg.payload)
     #print(msg.payload)
+    # if msg.payload >= 1000:
+    #     sendsms()
+    #     print("Received message #2, do something else")
     dbinsert(msg.payload)
 
 
@@ -32,8 +36,7 @@ def on_message(client, userdata, msg):
         # Do something
 
 
-    if msg.payload == "World!":
-        print("Received message #2, do something else")
+
         # Do something else
 
 # Create an MQTT client and attach our routines to it.

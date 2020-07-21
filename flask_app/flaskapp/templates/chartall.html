@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <meta http-equiv="refresh" content="5"> -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chartistjs/chartist.min.css') }}">
+<script src="{{ url_for('static', filename='chartistjs/chartist.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<div class="ct-chart ct-perfect-fourth">
+<script>
+  class MyCharts{
+
+    constructor(xData, yData, width, height){
+
+      this.xData = xData;
+      this.yData = yData;
+      this.width = width;
+      this.height = height;
+
+    }
+    creategraph(){
+      var data = {
+      //  labels: this.xData,
+        series: [this.yData]
+      }
+
+      var options = {
+        width: this.width,
+        height: this.height,
+        axisX:{
+          showGrid:true,
+          showLabel:false,
+        },
+        axisY:{
+          offset:1000,
+        }
+      };
+      new Chartist.Line('.ct-chart', data);
+    }
+  }
+  // var xData =['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  // var yData = [5, 2, 4, 2, 0]
+  var data = $.get('/json');
+  var emg = data.done(function (resp){
+      console.log("JSON SENSOR DATA",resp.sensorall);
+      console.log("JSON SENSOR DATA");
+      console.log("JSON ID DATA",resp.timeall);
+      var obj = new MyCharts(resp.time,resp.sensorall, 500, 900);
+      obj.creategraph();
+  })
+
+</script>
+</div>
+<h2>hello {{ sensor }}</h2>
+<h3>{{ results }}</h3>
+
+{% endblock %}

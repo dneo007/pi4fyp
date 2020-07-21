@@ -7,7 +7,7 @@ from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostF
 from flaskapp.models import User, Post, Reading
 from flask_login import login_user, current_user, logout_user, login_required
 import json
-from flaskapp.dbquery import dbquery, dbquery2
+from flaskapp.dbquery import dbqueryreading, dbquerydate, dbqueryreadingall, dbquerydateall
 
 @app.route('/')
 @app.route('/home')
@@ -71,14 +71,23 @@ def chart():
     # }
     return render_template('chart.html', title='Chart')
 
+@app.route('/chartall', methods=['GET', 'POST'])
+@login_required
+def chartall():
+    return render_template('chartall.html', title='Chart')
+
 @app.route('/json', methods=['GET', 'POST'])
 def json():
-    sensor = dbquery()
-    time = dbquery2()
+    sensor = dbqueryreading()
+    time = dbquerydate()
+    sensorall = dbqueryreadingall()
+    timeall = dbquerydateall()
     print(sensor)
     data = {
         "time": time,
-        "sensor": sensor
+        "sensor": sensor,
+        "timeall": timeall,
+        "sensorall": sensorall
     }
     return jsonify(data)
 
