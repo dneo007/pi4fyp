@@ -27,7 +27,7 @@ def on_message(client, userdata, msg):
     # if msg.payload >= 1000:
     #     sendsms()
     #     print("Received message #2, do something else")
-    dbinsert(msg.payload)
+    #dbinsert(msg.payload)
 
 
     # if msg.payload == "13":
@@ -44,7 +44,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("192.168.1.3", 1883, 60)
+client.connect("192.168.43.19", 1883, 60)
 
 # Process network traffic and dispatch callbacks. This will also handle
 # reconnecting. Check the documentation at
