@@ -4,6 +4,24 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chartistjs/chartist.min.css') }}">
 <script src="{{ url_for('static', filename='chartistjs/chartist.min.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+<a class="btn btn-primary" href="/chart/all" role="button">Full Chart</a>
+<a class="btn btn-success" href="/chart/latest" role="button">Latest Chart</a>
+<div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Interval Charts
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" href="#">Past Week</a>
+      <a class="dropdown-item" href="#">Past Month</a>
+    </div>
+  </div>
+</div>
+
+
+<br>
+<br>
 
 <div class="ct-chart ct-perfect-fourth">
 <script>
