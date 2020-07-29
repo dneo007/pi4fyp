@@ -105,42 +105,44 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/chart', methods=['GET', 'POST'])
+@app.route('/chart/<string:type>', methods=['GET', 'POST'])
 @login_required
-def chart():
-    # readings = Reading.query.all()
-    sensor = dbqueryreading()
-    id = dbquerydate()
-    print(sensor)
-    print(id)
+def chartadv(type):
+    if type == 'all':
+        return render_template('chartall.html', title='Chart All')
+    elif type == 'latest':
+        sensor = dbqueryreading()
+        id = dbquerydate()
+        print(sensor)
+        print(id)
+        return render_template('chart.html', title='Chart Latest')
 
-    # for reading in readings:
-    #     # id.append(reading.id)
-    #     sensor.append(reading.id)
-    # data = {
-    #     "id": id,
-    #     "sensor": sensor
-    # }
-    return render_template('chart.html', title='Chart')
 
-@app.route('/chartall', methods=['GET', 'POST'])
-@login_required
-def chartall():
-    return render_template('chartall.html', title='Chart')
+@app.route('/json/<string:type>', methods=['GET', 'POST'])
+def json(type):
+    if type == 'all':
+        sensor = dbqueryreadingall()
+        time = dbquerydateall()
+    elif type == 'latest':
+        sensor = dbqueryreading()
+        time = dbquerydate()
 
-@app.route('/json', methods=['GET', 'POST'])
-def json():
-    sensor = dbqueryreading()
-    time = dbquerydate()
-    sensorall = dbqueryreadingall()
-    timeall = dbquerydateall()
-    print(sensor)
     data = {
         "time": time,
         "sensor": sensor,
-        "timeall": timeall,
-        "sensorall": sensorall
     }
+
+    # sensor = dbqueryreading()
+    # time = dbquerydate()
+    # sensorall = dbqueryreadingall()
+    # timeall = dbquerydateall()
+    # print(sensor)
+    # data = {
+    #     "time": time,
+    #     "sensor": sensor,
+    #     "timeall": timeall,
+    #     "sensorall": sensorall
+    # }
     return jsonify(data)
 
 def save_picture(form_picture):

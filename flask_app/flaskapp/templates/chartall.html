@@ -39,7 +39,7 @@
   }
   // var xData =['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
   // var yData = [5, 2, 4, 2, 0]
-  var data = $.get('/json');
+  var data = $.get('/json/all');
   var emg = data.done(function (resp){
       console.log("JSON SENSOR DATA",resp.sensorall);
       console.log("JSON SENSOR DATA");
