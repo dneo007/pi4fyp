@@ -111,38 +111,25 @@ def chartadv(type):
     if type == 'all':
         return render_template('chartall.html', title='Chart All')
     elif type == 'latest':
-        sensor = dbqueryreading()
-        id = dbquerydate()
-        print(sensor)
-        print(id)
+        sensor = dbqueryreading(type)
+        id = dbquerydate(type)
+        # print(sensor)
+        # print(id)
         return render_template('chart.html', title='Chart Latest')
-
 
 @app.route('/json/<string:type>', methods=['GET', 'POST'])
 def json(type):
-    if type == 'all':
-        sensor = dbqueryreadingall()
-        time = dbquerydateall()
-    elif type == 'latest':
-        sensor = dbqueryreading()
-        time = dbquerydate()
+    # if type == 'all':
+    #     sensor = dbqueryreading(type)
+    #     time = dbquerydateall()
+    # elif type == 'latest':
+    sensor = dbqueryreading(type)
+    time = dbquerydate(type)
 
     data = {
         "time": time,
         "sensor": sensor,
     }
-
-    # sensor = dbqueryreading()
-    # time = dbquerydate()
-    # sensorall = dbqueryreadingall()
-    # timeall = dbquerydateall()
-    # print(sensor)
-    # data = {
-    #     "time": time,
-    #     "sensor": sensor,
-    #     "timeall": timeall,
-    #     "sensorall": sensorall
-    # }
     return jsonify(data)
 
 def save_picture(form_picture):
