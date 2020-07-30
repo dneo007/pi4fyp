@@ -8,7 +8,7 @@ from flaskapp.models import User, Post, Reading
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 import json
-from flaskapp.dbquery import dbqueryreading, dbquerydate, dbqueryreadingall, dbquerydateall
+from flaskapp.dbquery import dbqueryreading, dbquerydate
 
 @app.route('/')
 @app.route('/home')
@@ -113,19 +113,12 @@ def chartadv(type):
     elif type == 'latest':
         sensor = dbqueryreading(type)
         id = dbquerydate(type)
-        # print(sensor)
-        # print(id)
         return render_template('chart.html', title='Chart Latest')
 
 @app.route('/json/<string:type>', methods=['GET', 'POST'])
 def json(type):
-    # if type == 'all':
-    #     sensor = dbqueryreading(type)
-    #     time = dbquerydateall()
-    # elif type == 'latest':
     sensor = dbqueryreading(type)
     time = dbquerydate(type)
-
     data = {
         "time": time,
         "sensor": sensor,
