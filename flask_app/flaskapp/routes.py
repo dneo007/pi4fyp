@@ -109,11 +109,13 @@ def logout():
 @login_required
 def chartadv(type):
     if type == 'all':
-        return render_template('chartall.html', title='Chart All')
+        return render_template('charts/chartall.html', title='Chart All')
+    elif type == 'week':
+        return render_template('charts/chartweek.html', title='Chart All')
+    elif type == 'month':
+        return render_template('charts/chartmonth.html', title='Chart All')
     elif type == 'latest':
-        sensor = dbqueryreading(type)
-        id = dbquerydate(type)
-        return render_template('chart.html', title='Chart Latest')
+        return render_template('charts/chart.html', title='Chart Latest')
 
 @app.route('/json/<string:type>', methods=['GET', 'POST'])
 def json(type):

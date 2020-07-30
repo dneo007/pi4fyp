@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- <meta http-equiv="refresh" content="5"> -->
+<!-- <meta http-equiv="refresh" content="3"> -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chartistjs/chartist.min.css') }}">
 <script src="{{ url_for('static', filename='chartistjs/chartist.min.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -13,16 +13,14 @@
       Interval Charts
     </button>
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-      <a class="dropdown-item" href="#">Past Week</a>
-      <a class="dropdown-item" href="#">Past Month</a>
+      <a class="dropdown-item" href="/chart/week">Past Week</a>
+      <a class="dropdown-item" href="/chart/month">Past Month</a>
     </div>
   </div>
 </div>
 
-
 <br>
 <br>
-
 <div class="ct-chart ct-perfect-fourth">
 <script>
   class MyCharts{
@@ -37,7 +35,7 @@
     }
     creategraph(){
       var data = {
-        labels: this.xData,
+      //  labels: this.xData,
         series: [this.yData]
       }
 
@@ -46,10 +44,10 @@
         height: this.height,
         axisX:{
           showGrid:true,
-          showLabel:true,
+          showLabel:false,
         },
         axisY:{
-          offset:1000
+          offset:1000,
         }
       };
       new Chartist.Line('.ct-chart', data);
@@ -57,7 +55,7 @@
   }
   // var xData =['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
   // var yData = [5, 2, 4, 2, 0]
-  var data = $.get('/json/latest');
+  var data = $.get('/json/week');
   var emg = data.done(function (resp){
       console.log("JSON SENSOR DATA",resp.sensor);
       console.log("JSON SENSOR DATA");

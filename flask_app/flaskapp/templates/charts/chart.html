@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <meta http-equiv="refresh" content="5"> -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='chartistjs/chartist.min.css') }}">
+<script src="{{ url_for('static', filename='chartistjs/chartist.min.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+<a class="btn btn-primary" href="/chart/all" role="button">Full Chart</a>
+<a class="btn btn-success" href="/chart/latest" role="button">Latest Chart</a>
+<div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Interval Charts
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" href="/chart/week">Past Week</a>
+      <a class="dropdown-item" href="/chart/month">Past Month</a>
+    </div>
+  </div>
+</div>
+
+
+<br>
+<br>
+
+<div class="ct-chart ct-perfect-fourth">
+<script>
+  class MyCharts{
+
+    constructor(xData, yData, width, height){
+
+      this.xData = xData;
+      this.yData = yData;
+      this.width = width;
+      this.height = height;
+
+    }
+    creategraph(){
+      var data = {
+        labels: this.xData,
+        series: [this.yData]
+      }
+
+      var options = {
+        width: this.width,
+        height: this.height,
+        axisX:{
+          showGrid:true,
+          showLabel:true,
+        },
+        axisY:{
+          offset:1000
+        }
+      };
+      new Chartist.Line('.ct-chart', data);
+    }
+  }
+  // var xData =['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  // var yData = [5, 2, 4, 2, 0]
+  var data = $.get('/json/latest');
+  var emg = data.done(function (resp){
+      console.log("JSON SENSOR DATA",resp.sensor);
+      console.log("JSON SENSOR DATA");
+      console.log("JSON ID DATA",resp.time);
+      var obj = new MyCharts(resp.time,resp.sensor, 500, 900);
+      obj.creategraph();
+  })
+
+</script>
+</div>
+<h2>hello {{ sensor }}</h2>
+<h3>{{ results }}</h3>
+
+{% endblock %}
