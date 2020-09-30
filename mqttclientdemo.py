@@ -44,7 +44,12 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("192.168.43.19", 1883, 60)
+#desktop
+client.connect("192.168.1.3", 1883, 60)
+#hall
+#client.connect("192.168.0.196", 1883, 60)
+#hotspot
+#client.connect("192.168.43.19", 1883, 60)
 
 # Process network traffic and dispatch callbacks. This will also handle
 # reconnecting. Check the documentation at

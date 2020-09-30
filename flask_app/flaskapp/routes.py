@@ -4,11 +4,11 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, jsonify, abort
 from flaskapp import app, db, bcrypt, mail
 from flaskapp.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm
-from flaskapp.models import User, Post, Reading
+from flaskapp.models import User, Post, Reading, MaxReading
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 import json
-from flaskapp.dbquery import dbqueryreading, dbquerydate
+from flaskapp.dbquery import dbqueryreading, dbquerydate, dbquerymaxx
 
 @app.route('/')
 @app.route('/home')
@@ -108,14 +108,22 @@ def logout():
 @app.route('/chart/<string:type>', methods=['GET', 'POST'])
 @login_required
 def chartadv(type):
+    daymax = dbquerymax('latest')
+    if daymax.get('checkexists') == 0:
+        dbinsertmax(daymax.get('max'), daymax.get('date'))
+    allmax = dbquerymax('all')
+    content = {
+    'daymax': daymax.get('max'),
+    'allmax': allmax.get('max'),
+    }
     if type == 'all':
-        return render_template('charts/chartall.html', title='Chart All')
+        return render_template('charts/chartall.html', title='Chart All', **content)
     elif type == 'week':
-        return render_template('charts/chartweek.html', title='Chart All')
+        return render_template('charts/chartweek.html', title='Chart Week')
     elif type == 'month':
-        return render_template('charts/chartmonth.html', title='Chart All')
+        return render_template('charts/chartmonth.html', title='Chart Month')
     elif type == 'latest':
-        return render_template('charts/chart.html', title='Chart Latest')
+        return render_template('charts/chart.html', title='Chart Latest', **content)
 
 @app.route('/json/<string:type>', methods=['GET', 'POST'])
 def json(type):

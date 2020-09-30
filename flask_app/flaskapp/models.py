@@ -49,3 +49,11 @@ class Reading(db.Model):
 
     def __repr__(self):
         return f"Reading('{self.results}')"
+
+class MaxReading(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    results = db.Column(db.Integer, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+
+    def __repr__(self):
+        return f"Reading('{self.results}')"
