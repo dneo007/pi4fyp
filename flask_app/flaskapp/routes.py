@@ -8,7 +8,7 @@ from flaskapp.models import User, Post, Reading, MaxReading
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_mail import Message
 import json
-from flaskapp.dbquery import dbqueryreading, dbquerydate, dbquerymaxx
+from flaskapp.dbquery import dbqueryreading, dbquerydate, dbquerymax
 
 @app.route('/')
 @app.route('/home')
@@ -115,7 +115,9 @@ def chartadv(type):
     content = {
     'daymax': daymax.get('max'),
     'allmax': allmax.get('max'),
+    'avg': daymax.get('avg'),
     }
+    print(content.get('avg'))
     if type == 'all':
         return render_template('charts/chartall.html', title='Chart All', **content)
     elif type == 'week':
