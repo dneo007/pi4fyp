@@ -32,11 +32,6 @@ def on_message(client, userdata, msg):
 
     # if msg.payload == "13":
     #     print("Received message #1, do something")
-
-        # Do something
-
-
-
         # Do something else
 
 # Create an MQTT client and attach our routines to it.
