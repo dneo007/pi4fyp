@@ -4,9 +4,6 @@
 
 import paho.mqtt.client as mqtt
 import sqlite3 as sqlite3
-from dbentry import dbinsert
-from sendsms import sendsms
-from csvoperation import csvoperation
 from datetime import datetime
 
 
@@ -33,7 +30,7 @@ def on_message(client, userdata, msg):
     #     sendsms()
     #     print("Received message #2, do something else")
 
-    dbinsert(reading)
+    #dbinsert(reading)
 
 
     # if msg.payload == "13":
@@ -55,7 +52,7 @@ client.on_message = on_message
 #hall
 client.connect("192.168.0.196", 1883, 60)
 #hotspot
-#client.connect("192.168.43.19", 1883, 60)
+#client.connect("192.168.126.151", 1883, 60)
 
 # Process network traffic and dispatch callbacks. This will also handle
 # reconnecting. Check the documentation at

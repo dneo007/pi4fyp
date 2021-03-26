@@ -121,9 +121,9 @@ def chartadv(type):
     if type == 'all':
         return render_template('charts/chartall.html', title='Chart All', **content)
     elif type == 'week':
-        return render_template('charts/chartweek.html', title='Chart Week')
+        return render_template('charts/chartweek.html', title='Chart Week', **content)
     elif type == 'month':
-        return render_template('charts/chartmonth.html', title='Chart Month')
+        return render_template('charts/chartmonth.html', title='Chart Month', **content)
     elif type == 'latest':
         return render_template('charts/chart.html', title='Chart Latest', **content)
 
